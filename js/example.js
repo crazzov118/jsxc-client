@@ -1,9 +1,11 @@
+const server_url = "https://xmpp.meetstream.com:5281/http-bind";
+const server_domain = "xmpp.meetstream.com";
 let jsxc = new JSXC({
    loadConnectionOptions: (username, password) => {
       return Promise.resolve({
          xmpp: {
-            url: $('#bosh-url').val(),
-            domain: $('#xmpp-domain').val(),
+            url: server_url,
+            domain: server_domain,
          }
       });
    },
@@ -14,6 +16,8 @@ let jsxc = new JSXC({
       if (status === CONNECTED || status === ATTACHED) {
          $('.logout').show();
          $('.submit').hide();
+         $('body').addClass('jsxc-fullscreen jsxc-two-columns')
+         
       } else {
          $('.logout').hide();
          $('.submit').show();
@@ -21,6 +25,9 @@ let jsxc = new JSXC({
    }
 });
 
+$(document).on("load", function() {
+   alert("aaa");
+})
 subscribeToInstantLogin();
 watchForm();
 watchLogoutButton();
@@ -43,7 +50,8 @@ function subscribeToInstantLogin() {
    $('#instant-login-form').submit(function(ev) {
       var url = $('#bosh-url').val();
       var domain = $('#xmpp-domain').val();
-
+      url = server_url;
+      domain = server_domain;
       var username = $(this).find('[name="username"]').val();
       var password = $(this).find('[name="password"]').val();
 
