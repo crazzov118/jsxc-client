@@ -97,11 +97,11 @@ function inputHandler() {
    
    // test only every 2 seconds
    timeout = setTimeout(function() {
-      let url = $('#bosh-url').val();
-      let domain = $('#xmpp-domain').val();
+      let url = server_url;
+      let domain = server_domain;
 
       $('#server-flash').removeClass('success fail');
-
+      
       jsxc.testBOSHServer(url, domain).then(function(message) {
          $('#server-flash').addClass('success').html(message);
       }).catch(function(error) {
