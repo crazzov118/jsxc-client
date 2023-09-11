@@ -1,1 +1,1 @@
-"# jsxc-client" 
+"# xmpp chat client" 
