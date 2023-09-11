@@ -17,7 +17,7 @@ let jsxc = new JSXC({
          $('.logout').show();
          $('.submit').hide();
          $('body').addClass('jsxc-fullscreen jsxc-two-columns')
-         
+         $("body").removeClass("jsxc-roster-hidden");         
       } else {
          $('.logout').hide();
          $('.submit').show();
@@ -25,8 +25,8 @@ let jsxc = new JSXC({
    }
 });
 
-$(document).on("load", function() {
-   alert("aaa");
+$(document).ready(function() {
+   $('body').addClass("jsxc-roster-hidden");
 })
 subscribeToInstantLogin();
 watchForm();
