@@ -47,24 +47,27 @@ function watchLogoutButton() {
 }
 
 function subscribeToInstantLogin() {
-   $('#instant-login-form').submit(function(ev) {
-      var url = $('#bosh-url').val();
-      var domain = $('#xmpp-domain').val();
-      url = server_url;
-      domain = server_domain;
-      var username = $(this).find('[name="username"]').val();
-      var password = $(this).find('[name="password"]').val();
+   
+   url = server_url;
+   domain = server_domain;
+   // var username = $(this).find('[name="username"]').val();
+   // var password = $(this).find('[name="password"]').val();
+   const username = localStorage.getItem("userid");
+   const password = localStorage.getItem("password");
+   if(!username  || !password) window.location.assign("/signin.html");   
+   var jid = username + '@' + domain;
 
-      var jid = username + '@' + domain;
-
-      jsxc.start(url, jid, password)
-         .then(function() {
-            //console.log('>>> CONNECTION READY')
-            $('body').addClass('jsxc-fullscreen jsxc-two-columns')
-         }).catch(function(err) {
-            console.log('>>> catch', err)
-         })
-
-      return false;
-   });
+   jsxc.start(url, jid, password)
+   .then(function() {
+      //console.log('>>> CONNECTION READY')
+      $('body').addClass('jsxc-fullscreen jsxc-two-columns')
+   }).catch(function(err) {
+      console.log('>>> catch', err)
+   })
+   // $('#instant-login-form').submit(function(ev) {
+   //    var url = $('#bosh-url').val();
+   //    var domain = $('#xmpp-domain').val();
+      
+   //    return false;
+   // });
 }
