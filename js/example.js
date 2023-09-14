@@ -17,7 +17,7 @@ let jsxc = new JSXC({
          $('.logout').show();
          $('.submit').hide();
          $('body').addClass('jsxc-fullscreen jsxc-two-columns')
-         $("body").removeClass("jsxc-roster-hidden");         
+         $("body").removeClass("jsxc-roster-hidden");  
       } else {
          $('.logout').hide();
          $('.submit').show();
@@ -56,11 +56,12 @@ function subscribeToInstantLogin() {
    const password = localStorage.getItem("password");
    if(!username  || !password) window.location.assign("/signin.html");   
    var jid = username + '@' + domain;
-
+   console.log(url, jid, password);
    jsxc.start(url, jid, password)
    .then(function() {
       //console.log('>>> CONNECTION READY')
       $('body').addClass('jsxc-fullscreen jsxc-two-columns')
+         jsxc.manualJoin(localStorage.getItem("userid") + "@xmpp.meetstream.com", "ROOM");
    }).catch(function(err) {
       console.log('>>> catch', err)
    })

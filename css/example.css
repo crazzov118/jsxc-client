@@ -80,21 +80,3 @@ body.jsxc-master {
 body.jsxc-slave {
    border-top: 5px solid orange;
 }
-
-.col-container {
-  display: flex;
-  width: 100%;
-}
-.col {
-  /* flex: 1; */
-  padding: 16px;
-}
-.column-10 {
-   width: 70% !important;
-}
-.column-2 {
-   width: 30% !important;
-}
-#content {
-   margin-top: 10%;
-}
