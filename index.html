@@ -7,7 +7,7 @@
     <body>
         <div class="" style="display: flex;justify-content: center;align-items: center;height: 70vh;">
             <button class="btn btn-primary" onclick="login(1)" style="margin-right: 50px;">User1</button>
-            <button class="btn btn-primary" onclick="login(2)">User2</button>
+            <button class="btn btn-primary" onclick="login(2)">User3</button>
         </div>
 
     <script>
@@ -17,7 +17,7 @@
                 localStorage.setItem("password", "123456");
             }
             else if(user == 2) {
-                localStorage.setItem("userid", "user2");
+                localStorage.setItem("userid", "user3");
                 localStorage.setItem("password", "123456");
             }
             window.location.assign("/chat.html");
