@@ -7,7 +7,9 @@
     <body>
         <div class="" style="display: flex;justify-content: center;align-items: center;height: 70vh;">
             <button class="btn btn-primary" onclick="login(1)" style="margin-right: 50px;">User1</button>
-            <button class="btn btn-primary" onclick="login(2)">User3</button>
+            <button class="btn btn-primary" style="margin-right: 50px;" onclick="login(3)">User2</button>
+            <button class="btn btn-primary" onclick="login(2)" style="margin-right: 50px;">User3</button>
+            <button class="btn btn-primary" onclick="login(4)" style="margin-right: 50px;">User4</button>
         </div>
 
     <script>
@@ -20,6 +22,15 @@
                 localStorage.setItem("userid", "user3");
                 localStorage.setItem("password", "123456");
             }
+            else if ( user == 3) {
+                localStorage.setItem("userid", "user2");
+                localStorage.setItem("password", "123456");
+            }
+            else if ( user == 4) {
+                localStorage.setItem("userid", "user4");
+                localStorage.setItem("password", "123456");
+            }    
+
             window.location.assign("/chat.html");
         }
     </script>    
