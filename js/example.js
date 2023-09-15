@@ -16,11 +16,13 @@ let jsxc = new JSXC({
       if (status === CONNECTED || status === ATTACHED) {
          $('.logout').show();
          $('.submit').hide();
-         $('body').addClass('jsxc-fullscreen jsxc-two-columns')
-         $("body").removeClass("jsxc-roster-hidden");  
+         localStorage.setItem(localStorage.getItem("userid") + "_is_logged_in", "1");
+         localStorage.setItem("status", "0");
       } else {
          $('.logout').hide();
          $('.submit').show();
+         localStorage.setItem(localStorage.getItem("userid") + "_is_logged_in", "0");
+         localStorage.setItem("status", "10");
       }
    }
 });
@@ -37,7 +39,7 @@ function watchForm() {
    let usernameElement = $('#watch-username');
    let passwordElement = $('#watch-password');
 
-   // jsxc.watchForm(formElement, usernameElement, passwordElement);
+   jsxc.watchForm(formElement, usernameElement, passwordElement);
 }
 
 function watchLogoutButton() {
@@ -57,15 +59,19 @@ function subscribeToInstantLogin() {
    if(!username  || !password) window.location.assign("/signin.html");   
    var jid = username + '@' + domain;
    console.log(url, jid, password);
-   jsxc.start(url, jid, password)
+   if(localStorage.getItem(username + "_is_logged_in") == 1) return;
+   else jsxc.start(url, jid, password)
    .then(function() {
       //console.log('>>> CONNECTION READY')
-      $('body').addClass('jsxc-fullscreen jsxc-two-columns')
+      $('body').addClass('jsxc-fullscreen jsxc-two-columns');
       var roomName = "room4";
       jsxc.manualJoin(localStorage.getItem("userid") + "@xmpp.meetstream.com", roomName, localStorage.getItem("userid"));
+      localStorage.setItem(username + "_is_logged_in", '1');
    }).catch(function(err) {
-      console.log('>>> catch', err)
+      console.log('>>> catch', err);
    })
+   $("body").removeClass("jsxc-roster-hidden");
+   $('body').addClass('jsxc-fullscreen jsxc-two-columns');
    // $('#instant-login-form').submit(function(ev) {
    //    var url = $('#bosh-url').val();
    //    var domain = $('#xmpp-domain').val();
