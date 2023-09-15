@@ -13,12 +13,12 @@ let jsxc = new JSXC({
       const CONNECTED = 5;
       const ATTACHED = 8;
 
-      if (status === CONNECTED || status === ATTACHED) {
+      if (status === CONNECTED ) {
          $('.logout').show();
          $('.submit').hide();
          localStorage.setItem(localStorage.getItem("userid") + "_is_logged_in", "1");
          localStorage.setItem("status", "0");
-      } else {
+      } else if(status === ATTACHED) {
          $('.logout').hide();
          $('.submit').show();
          localStorage.setItem(localStorage.getItem("userid") + "_is_logged_in", "0");
