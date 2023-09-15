@@ -61,7 +61,8 @@ function subscribeToInstantLogin() {
    .then(function() {
       //console.log('>>> CONNECTION READY')
       $('body').addClass('jsxc-fullscreen jsxc-two-columns')
-         jsxc.manualJoin(localStorage.getItem("userid") + "@xmpp.meetstream.com", "room10", localStorage.getItem("userid"));
+      var roomName = "room";
+      jsxc.manualJoin(localStorage.getItem("userid") + "@xmpp.meetstream.com", roomName, localStorage.getItem("userid"));
    }).catch(function(err) {
       console.log('>>> catch', err)
    })
