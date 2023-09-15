@@ -59,16 +59,19 @@ function subscribeToInstantLogin() {
    if(!username  || !password) window.location.assign("/signin.html");   
    var jid = username + '@' + domain;
    console.log(url, jid, password);
-   $("body").removeClass("jsxc-roster-hidden");
-   $('body').addClass('jsxc-fullscreen jsxc-two-columns');
-   if(localStorage.getItem(username + "_is_logged_in") == 1) return;
+   if(localStorage.getItem(username + "_is_logged_in") == 1) {
+      $("body").removeClass("jsxc-roster-hidden");
+      $('body').addClass('jsxc-fullscreen jsxc-two-columns');
+      return;
+   }
    else jsxc.start(url, jid, password)
    .then(function() {
       //console.log('>>> CONNECTION READY')
-      $('body').addClass('jsxc-fullscreen jsxc-two-columns');
       var roomName = "room4";
       jsxc.manualJoin(localStorage.getItem("userid") + "@xmpp.meetstream.com", roomName, localStorage.getItem("userid"));
-      localStorage.setItem(username + "_is_logged_in", '1');
+      localStorage.setItem(localStorage.getItem("userid") + "_is_logged_in", '1');
+      $("body").removeClass("jsxc-roster-hidden");
+      $('body').addClass('jsxc-fullscreen jsxc-two-columns');
    }).catch(function(err) {
       console.log('>>> catch', err);
    })
