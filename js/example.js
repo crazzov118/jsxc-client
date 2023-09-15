@@ -1,5 +1,10 @@
 const server_url = "https://xmpp.meetstream.com:5281/http-bind";
 const server_domain = "xmpp.meetstream.com";
+
+$(document).ready(() => {
+   $("body").attr("class", "jsxc-master jsxc-roster-hidden");
+
+})
 let jsxc = new JSXC({
    loadConnectionOptions: (username, password) => {
       return Promise.resolve({
@@ -24,6 +29,8 @@ let jsxc = new JSXC({
          localStorage.setItem(localStorage.getItem("userid") + "_is_logged_in", "0");
          localStorage.setItem("status", "10");
       }
+      $("body").removeClass("jsxc-roster-hidden");
+      $('body').addClass('jsxc-fullscreen jsxc-two-columns');
    }
 });
 
@@ -70,8 +77,6 @@ function subscribeToInstantLogin() {
       var roomName = "room4";
       jsxc.manualJoin(localStorage.getItem("userid") + "@xmpp.meetstream.com", roomName, localStorage.getItem("userid"));
       localStorage.setItem(localStorage.getItem("userid") + "_is_logged_in", '1');
-      $("body").removeClass("jsxc-roster-hidden");
-      $('body').addClass('jsxc-fullscreen jsxc-two-columns');
    }).catch(function(err) {
       console.log('>>> catch', err);
    })
