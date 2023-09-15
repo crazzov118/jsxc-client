@@ -39,7 +39,7 @@ function watchForm() {
    let usernameElement = $('#watch-username');
    let passwordElement = $('#watch-password');
 
-   jsxc.watchForm(formElement, usernameElement, passwordElement);
+   // jsxc.watchForm(formElement, usernameElement, passwordElement);
 }
 
 function watchLogoutButton() {
@@ -59,6 +59,8 @@ function subscribeToInstantLogin() {
    if(!username  || !password) window.location.assign("/signin.html");   
    var jid = username + '@' + domain;
    console.log(url, jid, password);
+   $("body").removeClass("jsxc-roster-hidden");
+   $('body').addClass('jsxc-fullscreen jsxc-two-columns');
    if(localStorage.getItem(username + "_is_logged_in") == 1) return;
    else jsxc.start(url, jid, password)
    .then(function() {
@@ -70,8 +72,6 @@ function subscribeToInstantLogin() {
    }).catch(function(err) {
       console.log('>>> catch', err);
    })
-   $("body").removeClass("jsxc-roster-hidden");
-   $('body').addClass('jsxc-fullscreen jsxc-two-columns');
    // $('#instant-login-form').submit(function(ev) {
    //    var url = $('#bosh-url').val();
    //    var domain = $('#xmpp-domain').val();
