@@ -18,16 +18,16 @@ let jsxc = new JSXC({
       const CONNECTED = 5;
       const ATTACHED = 8;
 
-      if (status === CONNECTED ) {
+      if (status === CONNECTED || status === ATTACHED) {
          $('.logout').show();
          $('.submit').hide();
          localStorage.setItem(localStorage.getItem("userid") + "_is_logged_in", "1");
          localStorage.setItem("status", "0");
-      } else if(status === ATTACHED) {
+      } else if( status == 7) {
          $('.logout').hide();
          $('.submit').show();
-         localStorage.setItem(localStorage.getItem("userid") + "_is_logged_in", "0");
-         localStorage.setItem("status", "10");
+         localStorage.clear();
+         window.location.assign("/");
       }
       $("body").removeClass("jsxc-roster-hidden");
       $('body').addClass('jsxc-fullscreen jsxc-two-columns');
