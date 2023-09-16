@@ -1,27 +1,3 @@
-$('.version').text(jsxc.version);
-
-// special setup on localhost
-if (window.location.hostname === 'localhost') {
-   watchLoginCredentials();
-   restoreInstantLoginCredentials();
-
-   $('.localhost').show();
-}
-
-// special setup for jsxc.org/example
-if (window.location.hostname === 'www.jsxc.org' || window.location.hostname === 'jsxc.org') {
-    if (!localStorage.getItem('bosh-url') && !localStorage.getItem('xmpp-domain')) {
-       $('#bosh-url').val('/http-bind/');
-       $('#xmpp-domain').val('jsxc.ch');
-
-       const demoUser = 'demo' + Math.round(Math.random() * 9);
-
-       $('[name="username"]').val(demoUser);
-       $('[name="password"]').val(demoUser);
-    }
-
-    $('.jsxc-org').show();
- }
 
 armConnectionParameterForm();
 

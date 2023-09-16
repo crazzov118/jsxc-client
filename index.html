@@ -11,8 +11,10 @@
             <button class="btn btn-primary" onclick="login(2)" style="margin-right: 50px;">User3</button>
             <button class="btn btn-primary" onclick="login(4)" style="margin-right: 50px;">User4</button>
         </div>
-
     <script>
+        const userid = localStorage.getItem("userid");
+        if(userid && userid.indexOf("user") != -1) window.location.assign("/chat.html");
+
         function login(user) {
             if(user == 1) {
                 localStorage.setItem("userid", "user1");

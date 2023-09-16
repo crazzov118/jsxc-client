@@ -3,43 +3,72 @@ const server_domain = "xmpp.meetstream.com";
 
 $(document).ready(() => {
    $("body").attr("class", "jsxc-master jsxc-roster-hidden");
-
+   init();
 })
-let jsxc = new JSXC({
-   loadConnectionOptions: (username, password) => {
-      return Promise.resolve({
-         xmpp: {
-            url: server_url,
-            domain: server_domain,
+
+var jsxc;
+function init() {
+   jsxc = new JSXC({
+      loadConnectionOptions: (username, password) => {
+         return Promise.resolve({
+            xmpp: {
+               url: server_url,
+               domain: server_domain,
+            }
+         });
+      },
+      connectionCallback: (jid, status) => {
+         const CONNECTED = 5;
+         const ATTACHED = 8;
+
+         if (status === CONNECTED || status === ATTACHED) {
+            $('.logout').show();
+            $('.submit').hide();
+            localStorage.setItem(localStorage.getItem("userid") + "_is_logged_in", "1");
+            localStorage.setItem("status", "0");
+         } else if( status == 7) {
+            $('.logout').hide();
+            $('.submit').show();
+            localStorage.clear();
+            window.location.assign("/");
          }
-      });
-   },
-   connectionCallback: (jid, status) => {
-      const CONNECTED = 5;
-      const ATTACHED = 8;
-
-      if (status === CONNECTED || status === ATTACHED) {
-         $('.logout').show();
-         $('.submit').hide();
-         localStorage.setItem(localStorage.getItem("userid") + "_is_logged_in", "1");
-         localStorage.setItem("status", "0");
-      } else if( status == 7) {
-         $('.logout').hide();
-         $('.submit').show();
-         localStorage.clear();
-         window.location.assign("/");
+         $("body").removeClass("jsxc-roster-hidden");
+         $('body').addClass('jsxc-fullscreen jsxc-two-columns');
       }
-      $("body").removeClass("jsxc-roster-hidden");
-      $('body').addClass('jsxc-fullscreen jsxc-two-columns');
-   }
-});
+   });
 
-$(document).ready(function() {
-   $('body').addClass("jsxc-roster-hidden");
-})
-subscribeToInstantLogin();
-watchForm();
-watchLogoutButton();
+   subscribeToInstantLogin();
+   watchForm();
+   watchLogoutButton();
+   
+   /*
+   $('.version').text(jsxc.version);
+
+   // special setup on localhost
+   if (window.location.hostname === 'localhost') {
+      watchLoginCredentials();
+      restoreInstantLoginCredentials();
+
+      $('.localhost').show();
+   }
+
+   // special setup for jsxc.org/example
+   if (window.location.hostname === 'www.jsxc.org' || window.location.hostname === 'jsxc.org') {
+       if (!localStorage.getItem('bosh-url') && !localStorage.getItem('xmpp-domain')) {
+          $('#bosh-url').val('/http-bind/');
+          $('#xmpp-domain').val('jsxc.ch');
+
+          const demoUser = 'demo' + Math.round(Math.random() * 9);
+
+          $('[name="username"]').val(demoUser);
+          $('[name="password"]').val(demoUser);
+       }
+
+       $('.jsxc-org').show();
+    }
+    */
+}
+
 
 function watchForm() {
    let formElement = $('#watch-form');
